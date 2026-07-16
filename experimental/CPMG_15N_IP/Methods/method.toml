@@ -1,0 +1,5 @@
+[STEP1]
+INCLUDE = "ALL"
+FIT = ["PB", "KEX_AB", "DW_AB"]
+FIX = ["CS_A"]
+CONSTRAINTS = ["[R2_B]=[R2_A]"]

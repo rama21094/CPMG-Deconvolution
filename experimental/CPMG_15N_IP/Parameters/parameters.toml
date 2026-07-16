@@ -1,0 +1,8 @@
+[GLOBAL]
+PB = 0.05
+KEX_AB = 300.0
+DW_AB = 1.0
+TAUC_A = 3.0
+
+[CS_A]
+1N = 119

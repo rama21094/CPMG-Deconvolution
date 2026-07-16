@@ -1,0 +1,23 @@
+# Virtual Environments
+.venv/
+
+# Directories
+/models/
+/pyragify/
+/.lgraph/
+/.claude/
+/.agents/
+
+# Cache files
+__pycache__/
+.DS_Store
+*.pyc
+
+# Specific File Extensions
+*.npy
+*.pth
+*.npz
+*.h5
+
+# Training runs
+/runs/

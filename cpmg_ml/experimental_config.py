@@ -1,0 +1,60 @@
+"""Editable configuration for experimental-ready CPMG de-J training."""
+
+from pathlib import Path
+
+
+# Dynamic data generation
+TRAIN_PROFILES_PER_BLOCK = 10_000
+EPOCHS_PER_BLOCK = 10
+MAX_EPOCHS = 200
+VAL_PROFILES = 2_000
+NORMALIZATION_PROFILES = 10_000
+GENERATION_WORKERS = 16
+GENERATION_CHUNK_SIZE = 100
+GENERATION_PROGRESS_SECONDS = 10.0
+MAX_RETRIES = 100
+RANGES_CSV = Path.home() / "Downloads" / "CPMG Simulation - Base Variables - updated.csv"
+
+# Experimental-style profiles
+MIN_PROFILE_LENGTH = 8
+MAX_PROFILE_LENGTH = 64
+MIN_NU_CPMG_HZ = 20.0
+MAX_NU_CPMG_HZ = 2000.0
+MIN_T_RELAX = 0.020
+MAX_T_RELAX = 0.080
+MIN_ESD = 0.05
+MAX_ESD = 1.0
+MAX_DUPLICATE_FRACTION = 0.25
+MAX_NCYC_CANDIDATE = 512
+
+# Training
+OUT_DIR = Path("runs/cpmg_experimental")
+DEVICE = "cuda:1"
+BATCH_SIZE = 256
+NUM_WORKERS = 0
+LR = 5.0e-4
+MIN_LR = 1.0e-6
+WEIGHT_DECAY = 1.0e-4
+SLOPE_WEIGHT = 0.05
+GRAD_CLIP_NORM = 1.0
+USE_AMP = True
+USE_TORCH_COMPILE = False
+
+# Scheduler / stopping
+LR_PLATEAU_PATIENCE = 20
+LR_PLATEAU_FACTOR = 0.5
+EARLY_STOPPING_PATIENCE = 60
+
+# Transformer
+MODEL_DIM = 128
+NUM_HEADS = 8
+NUM_LAYERS = 6
+FF_DIM = 256
+DROPOUT = 0.1
+
+# Seeds / checkpointing
+NORMALIZATION_SEED = 4101
+VALIDATION_SEED = 4201
+TRAIN_SEED = 4301
+RESUME = True
+SAVE_EVERY_EPOCH = True
