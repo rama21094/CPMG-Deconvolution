@@ -1,0 +1,27 @@
+python -m pip install -r requirements-ml.txt
+python -m cpmg_ml.generate_dataset --split train --num-profiles 10000 --shard-size 1000 --seed 1
+python -m cpmg_ml.generate_dataset --split val --num-profiles 2000 --shard-size 1000 --seed 2
+python -m cpmg_ml.generate_dataset --split test --num-profiles 2000 --shard-size 1000 --seed 3
+python -m cpmg_ml.train --data-dir data/cpmg_dej --out-dir runs/cpmg_dej
+
+## Dynamic in-memory training
+# Edit cpmg_ml/train_dynamic_config.py first if needed.
+python -m cpmg_ml.train_dynamic
+
+## Test Script
+python -m cpmg_ml.test_model \
+  --checkpoint runs/cpmg_dej/best_model.pt \
+  --data-dir data/cpmg_dej \
+  --split test \
+  --out-dir runs/cpmg_dej/test_report_quick \
+  --device cuda:1 \
+  --max-profiles 1000
+
+## Evaluate Script
+  python -m cpmg_ml.evaluate \
+  --checkpoint runs/cpmg_dej/best_model.pt \
+  --data-dir data/cpmg_dej \
+  --split test \
+  --plot-dir runs/cpmg_dej/test_plots \
+  --num-plots 20 \
+  --device cuda:1
