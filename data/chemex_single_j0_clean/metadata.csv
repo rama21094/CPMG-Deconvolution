@@ -1,0 +1,2 @@
+sim_id,case_id,field_file,B0_MHz,B0_T,J_IS,k_ex,p_B,dw_N,B1_N,tau_m,tau_e,S2,r_IS,r_eff,csa_N,theta_N_rad,theta_N_deg,I0,relative_esd,noise_enabled,seed,repeated_ncyc,valid_points,nonfinite_points,skipped_count,skipped_ncyc
+0,0,Data/600MHz/sim_000000_1N-HN.out,600.0,14.091966957139045,0.0,300.0,0.05,1.0,5555.0,5e-09,5e-11,0.85,1.02e-10,1.86e-10,-0.00016,0.3839724354387525,22.0,1000000.0,0.005,False,1,,40,0,0,

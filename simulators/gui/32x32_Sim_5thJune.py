@@ -188,7 +188,9 @@ class CPMG_Simulator:
                 continue # Pulses take up the entire window, unphysical for CPMG
                 
             tau_cp = (T_relax - total_pulse_time) / (2.0 * ncyc)
-            nu_cp = 1.0 / (4.0 * tau_cp) # Standard mapping
+            ## Variable mapping for nu_cp: Standard vs True Constant-Time
+            # One of the following two lines can be used depending on the desired mapping
+            nu_cp = 1.0 / (4.0 * tau_cp) # Standard mapping            
             
             U_tau = la.expm(L_free * tau_cp)
             

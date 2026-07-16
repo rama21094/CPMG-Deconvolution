@@ -8,6 +8,19 @@ python -m cpmg_ml.train --data-dir data/cpmg_dej --out-dir runs/cpmg_dej
 # Edit cpmg_ml/train_dynamic_config.py first if needed.
 python -m cpmg_ml.train_dynamic
 
+## Experimental-ready variable-length training
+python -m cpmg_ml.validate_experimental_pipeline --num-profiles 64 --workers 4
+python -m cpmg_ml.train_experimental --device cuda:1 --generation-workers 32
+
+## Predict J=0 from a real spectrometer profile
+python -m cpmg_ml.predict_experimental \
+  --checkpoint runs/cpmg_experimental/best_model.pt \
+  --input profile.txt \
+  --b0-mhz 600 \
+  --out-csv predicted_j0.csv \
+  --out-plot predicted_j0.png \
+  --device cuda:1
+
 ## Test Script
 python -m cpmg_ml.test_model \
   --checkpoint runs/cpmg_dej/best_model.pt \
@@ -25,3 +38,19 @@ python -m cpmg_ml.test_model \
   --plot-dir runs/cpmg_dej/test_plots \
   --num-plots 20 \
   --device cuda:1
+
+  ## Test Experimental 
+  OMP_NUM_THREADS=1 \
+MKL_NUM_THREADS=1 \
+OPENBLAS_NUM_THREADS=1 \
+python -m cpmg_ml.train_experimental \
+  --device cuda:1 \
+  --generation-workers 32
+
+## TRAIN Experimental
+OMP_NUM_THREADS=1 \
+MKL_NUM_THREADS=1 \
+OPENBLAS_NUM_THREADS=1 \
+python -m cpmg_ml.train_experimental \
+  --device cuda:1 \
+  --generation-workers 32
