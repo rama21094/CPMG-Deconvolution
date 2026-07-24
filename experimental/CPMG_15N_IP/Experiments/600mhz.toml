@@ -9,9 +9,9 @@ time_equil = 2.0e-3
 h_larmor_frq = 600.0
 
 [data]
-# path = "../Data/600MHz/" 
-path = "../../data/chemex_orthogonal_sweep/Data/600MHz"
+path = "../../../data/chemex_j0/Data/600MHz"
 error = "file"
 
 [data.profiles]
-1N = "sim_000000_1N-HN.out"
+# 1N = "sim_000000_1N-HN.out"
+1N = "sim_000001_1N-HN.out"

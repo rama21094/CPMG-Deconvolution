@@ -45,7 +45,10 @@ class CPMG_Simulator:
         c2_N = (1.0 / 3.0) * (omega_N * csa_N)**2
         
         P2_cos = 0.5 * (3.0 * np.cos(theta_N)**2 - 1.0)
-        dc = np.sqrt(d2) * np.sqrt(c2_N) * P2_cos
+        # sqrt(3) corrects a missing factor versus Allard, Helgstrand & Hard (1998)
+        # Eq. 33-34: Ad*Ac = sqrt(9*d2 * 3*c2_N) = sqrt(3)*sqrt(d2*c2_N)*3, so dc
+        # must include sqrt(3) for eta_z/eta_xy to match delta_S/eta_S.
+        dc = np.sqrt(3.0) * np.sqrt(d2) * np.sqrt(c2_N) * P2_cos
 
         # Eq 39 & 40: Homonuclear Leakage
         rho_H = (d2_H / 4.0) * (j0 + 3*jH + 6*j2H)

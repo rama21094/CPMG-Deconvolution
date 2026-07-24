@@ -63,7 +63,10 @@ c2 = (1.0 / 3.0) * (omega_S * csa_S)**2 # [cite: 25]
 
 # DD-CSA cross-correlation prefactor [cite: 31]
 P2_cos = 0.5 * (3.0 * np.cos(theta_CSA_DD)**2 - 1.0)
-dc = np.sqrt(d2) * np.sqrt(c2) * P2_cos
+# sqrt(3) corrects a missing factor versus Allard, Helgstrand & Hard (1998)
+# Eq. 33-34: Ad*Ac = sqrt(9*d2 * 3*c2) = sqrt(3)*sqrt(d2*c2)*3, so dc must
+# include sqrt(3) for eta_z/eta_xy to match delta_S/eta_S.
+dc = np.sqrt(3.0) * np.sqrt(d2) * np.sqrt(c2) * P2_cos
 
 # --- 3. Rigorous Matrix Builder ---
 def build_16x16_rigorous(omega_offset_I, omega_offset_S, J_IS):

@@ -1,0 +1,17 @@
+[experiment]
+name = "cpmg_15n_ip"
+time_t2 = 0.068
+carrier = 119.013
+pw90 = 45.0e-6
+time_equil = 2.0e-3
+
+[conditions]
+h_larmor_frq = 800.0
+
+[data]
+path = "../../../data/chemex_j0/Data/800MHz"
+error = "file"
+
+[data.profiles]
+# 1N = "sim_001500_1N-HN.out"
+1N = "sim_001501_1N-HN.out"

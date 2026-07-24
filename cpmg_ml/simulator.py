@@ -74,7 +74,10 @@ class CPMGSimulator:
         c2_n = (1.0 / 3.0) * (omega_n * csa_n) ** 2
 
         p2_cos = 0.5 * (3.0 * np.cos(theta_n) ** 2 - 1.0)
-        dc = np.sqrt(d2) * np.sqrt(c2_n) * p2_cos
+        # sqrt(3) corrects a missing factor versus Allard, Helgstrand & Hard
+        # (1998) Eq. 33-34: Ad*Ac = sqrt(9*d2 * 3*c2_n) = sqrt(3)*sqrt(d2*c2_n)*3,
+        # so dc must include sqrt(3) for eta_z/eta_xy to match delta_S/eta_S.
+        dc = np.sqrt(3.0) * np.sqrt(d2) * np.sqrt(c2_n) * p2_cos
 
         rho_h = (d2_h / 4.0) * (j0 + 3.0 * jh + 6.0 * j2h)
         lambda_h = (d2_h / 8.0) * (5.0 * j0 + 9.0 * jh + 6.0 * j2h)
