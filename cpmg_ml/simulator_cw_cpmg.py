@@ -32,15 +32,16 @@ In that basis (I = 1H, S = 15N):
 
 CPMGSimulator.build_rf_liouvillian only implements an x-phase pulse on
 the S (15N) spin. The CW-CPMG scheme needs pulses (and a continuous
-field) on both spins at both x and y phase, so build_rf_liouvillian_spin
-below generalizes it. The sign convention (which index of each
-z-coupled pair gets +field vs -field) was fixed by numerically testing
-CPMGSimulator.build_rf_liouvillian's existing N-x-phase behavior
-(confirmed: a 90 degree N-x pulse rotates Nz -> +Ny) and then deriving
-the other three cases (N-y, H-x, H-y) from Allard et al.'s own
-Liouvillian matrix (their Eq. 19) using the same handedness, so all
-four cases are mutually consistent with the one convention this
-codebase already uses.
+field) on both spins at both x and y phase, so this module relies on
+CPMGSimulator.build_rf_liouvillian_spin, which generalizes it (shared
+with the ChemEx-sequence comparison mode in simulator.py). The sign
+convention (which index of each z-coupled pair gets +field vs -field)
+was fixed by numerically testing CPMGSimulator.build_rf_liouvillian's
+existing N-x-phase behavior (confirmed: a 90 degree N-x pulse rotates
+Nz -> +Ny) and then deriving the other three cases (N-y, H-x, H-y) from
+Allard et al.'s own Liouvillian matrix (their Eq. 19) using the same
+handedness, so all four cases are mutually consistent with the one
+convention this codebase already uses.
 """
 
 from __future__ import annotations
@@ -58,40 +59,9 @@ from .simulator import (
     CPMGSimulator,
 )
 
-# (index_a, index_b) pairs that rotate into each other under a hard pulse,
-# plus the sign of the +field entry: L[a, b] = sign * w1, L[b, a] = -sign * w1.
-_RF_PAIRS: dict[tuple[str, str], tuple[list[tuple[int, int]], int]] = {
-    ("N", "x"): ([(5, 6), (12, 7), (14, 8), (10, 15)], +1),
-    ("N", "y"): ([(4, 6), (11, 7), (13, 8), (9, 15)], -1),
-    ("H", "x"): ([(2, 3), (8, 15), (13, 9), (14, 10)], +1),
-    ("H", "y"): ([(1, 3), (7, 15), (11, 9), (12, 10)], -1),
-}
-
 
 class CWCPMGSimulator(CPMGSimulator):
     """CPMGSimulator plus the CW-CPMG (1H-decoupled) pulse-train logic."""
-
-    def build_rf_liouvillian_spin(
-        self, spin: str, phase: str, field_hz: float
-    ) -> np.ndarray:
-        """32x32 (two-site-exchange-doubled) RF Liouvillian for one hard
-        pulse or continuous field on one spin, at one phase.
-
-        spin: "H" (proton, I) or "N" (nitrogen, S)
-        phase: "x" or "y"
-        """
-        key = (spin, phase)
-        if key not in _RF_PAIRS:
-            raise ValueError(f"unsupported spin/phase combination: {spin!r}/{phase!r}")
-        pairs, sign = _RF_PAIRS[key]
-
-        l_rf = np.zeros((32, 32), dtype=complex)
-        w1 = 2.0 * np.pi * field_hz
-        for offset in (0, 16):
-            for a, b in pairs:
-                l_rf[offset + a, offset + b] = sign * w1
-                l_rf[offset + b, offset + a] = -sign * w1
-        return l_rf
 
     def simulate_cw_cpmg(
         self,
