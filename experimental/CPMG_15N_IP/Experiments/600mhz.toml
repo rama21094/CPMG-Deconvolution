@@ -1,6 +1,6 @@
 [experiment]
 name = "cpmg_15n_ip"
-time_t2 = 0.068
+time_t2 = 0.04
 carrier = 119.013
 pw90 = 45.0e-6
 time_equil = 2.0e-3

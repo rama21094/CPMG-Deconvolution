@@ -15,7 +15,16 @@ from .simulator import CPMGSimulator, b0_mhz_to_tesla
 
 DEFAULT_OUT_DIR = Path("data/chemex_orthogonal_sweep")
 DEFAULT_T_RELAX = 0.04
-DEFAULT_NCYC_GRID = np.arange(1, 80, 2, dtype=np.int32)
+
+# ChemEx's cpmg_15n_ip sequence applies TWO ncyc-pulse half-trains per labeled
+# ncyc (plus one central compensating 180), i.e. 2*ncyc refocusing pulses total,
+# whereas the home simulator applies exactly ncyc pulses for a labeled ncyc.
+# DEFAULT_NCYC_GRID is therefore the number of pulses the home physics actually
+# simulates; it must be even so CHEMEX_NCYC_LABEL (what gets written to the .out
+# file's ncyc_cp column, and what ChemEx will read back as its own ncyc) is an
+# exact integer matching ChemEx's convention.
+DEFAULT_NCYC_GRID = np.arange(2, 82, 2, dtype=np.int32)
+CHEMEX_NCYC_LABEL = DEFAULT_NCYC_GRID // 2
 
 DEFAULT_B0_MHZ = [600.0, 800.0]
 DEFAULT_J_IS = 92.0
@@ -132,8 +141,10 @@ def build_config(args: argparse.Namespace) -> dict[str, Any]:
         "dw_n_ppm_values": dw_values.tolist(),
         "fixed_parameters": {**FIXED_GUI_DEFAULTS, "theta_N_deg": 22.0},
         "ncyc_grid": DEFAULT_NCYC_GRID.astype(int).tolist(),
+        "chemex_ncyc_label_grid": CHEMEX_NCYC_LABEL.astype(int).tolist(),
         "base_schedule": [0] + DEFAULT_NCYC_GRID.astype(int).tolist(),
         "t_relax": DEFAULT_T_RELAX,
+        "chemex_time_t2_required": DEFAULT_T_RELAX,
         "i0": float(args.i0),
         "relative_esd": float(args.relative_esd),
         "noise_enabled": not args.no_noise,
@@ -218,17 +229,18 @@ def chemex_rows(
     ref_intensity, ref_esd = noisy_intensity(i0, relative_esd, rng, noise_enabled)
     rows.append((0, ref_intensity, ref_esd))
 
-    for ncyc in DEFAULT_NCYC_GRID:
+    for ncyc, label in zip(DEFAULT_NCYC_GRID, CHEMEX_NCYC_LABEL):
         r2_eff = r2_by_ncyc[int(ncyc)]
         clean_intensity = i0 * math.exp(-r2_eff * DEFAULT_T_RELAX)
         intensity, esd = noisy_intensity(clean_intensity, relative_esd, rng, noise_enabled)
-        rows.append((int(ncyc), intensity, esd))
+        rows.append((int(label), intensity, esd))
 
     for ncyc in repeated_ncyc:
+        label = int(ncyc) // 2
         r2_eff = r2_by_ncyc[int(ncyc)]
         clean_intensity = i0 * math.exp(-r2_eff * DEFAULT_T_RELAX)
         intensity, esd = noisy_intensity(clean_intensity, relative_esd, rng, noise_enabled)
-        rows.append((int(ncyc), intensity, esd))
+        rows.append((label, intensity, esd))
 
     return rows
 
