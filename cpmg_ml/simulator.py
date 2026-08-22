@@ -154,8 +154,15 @@ class CPMGSimulator:
         l_mat[4, 9] = l_mat[9, 4] = -eta_xy
         l_mat[5, 10] = l_mat[10, 5] = -eta_xy
         l_mat[6, 15] = l_mat[15, 6] = -eta_z
-        l_mat[11, 14] = l_mat[14, 11] = -mu_mq
-        l_mat[12, 13] = l_mat[13, 12] = mu_mq
+        # Allard Eq. [19] is written as  d(sigma)/dt = -P * sigma,  so every
+        # element of the printed matrix must be negated on the way into l_mat.
+        # The printed matrix has P[2IxSx,2IySy] = -mu_mq and P[2IxSy,2IySx] =
+        # +mu_mq, hence l_mat gets +mu_mq and -mu_mq respectively. These two
+        # lines previously carried the printed signs un-negated, which swapped
+        # the DQ and ZQ relaxation rates (R_DQ must exceed R_ZQ, since
+        # mu_mq = (Ad^2/36)[-J(wI-wS)/2 + 3J(wI+wS)] > 0).
+        l_mat[11, 14] = l_mat[14, 11] = mu_mq
+        l_mat[12, 13] = l_mat[13, 12] = -mu_mq
 
         l_mat[4, 5] = -dw_offset
         l_mat[5, 4] = dw_offset
@@ -175,10 +182,12 @@ class CPMGSimulator:
         l_mat[10, 4] = pi_j
         l_mat[5, 9] = pi_j
         l_mat[9, 5] = -pi_j
-        l_mat[11, 14] -= pi_j
-        l_mat[14, 11] += pi_j
-        l_mat[12, 13] += pi_j
-        l_mat[13, 12] -= pi_j
+        # No J-coupling terms in the multiple-quantum block. The scalar-coupling
+        # Hamiltonian 2*pi*J*IzSz commutes exactly with all four MQ operators
+        # (2IxSx, 2IxSy, 2IySx, 2IySy), so J cannot connect them -- DQ and ZQ
+        # coherences are not split by J in a two-spin system. Allard Eq. [19]
+        # correspondingly shows no pi*J entries in those four rows. Four lines
+        # adding +/-pi_j to [11,14], [14,11], [12,13], [13,12] were removed here.
 
         return l_mat
 
