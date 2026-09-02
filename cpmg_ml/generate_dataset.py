@@ -41,6 +41,7 @@ def generate_one_example(
     ncyc_grid: np.ndarray,
     t_relax: float,
     max_retries: int,
+    sequence: str = "home",
 ) -> dict[str, Any]:
     specs = load_specs_from_json(specs_json)
     rng = np.random.default_rng(seed)
@@ -49,7 +50,9 @@ def generate_one_example(
 
     for _ in range(max_retries):
         params, metadata = sample_simulation_case(rng, specs)
-        with_j, no_j = sim.simulate_dej_pair(params, ncyc_range=ncyc_grid, t_relax=t_relax)
+        with_j, no_j = sim.simulate_dej_pair(
+            params, ncyc_range=ncyc_grid, t_relax=t_relax, sequence=sequence
+        )
         same_axis = len(with_j.nu_cp) == len(no_j.nu_cp) and np.allclose(with_j.nu_cp, no_j.nu_cp)
         no_skips = not with_j.skipped_ncyc and not no_j.skipped_ncyc
         valid = (
@@ -91,6 +94,7 @@ def write_shard(
     t_relax: float,
     specs_json: str,
     compression: str | None,
+    sequence: str = "home",
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     count = len(examples)
@@ -133,6 +137,7 @@ def write_shard(
         handle.attrs["metadata_keys"] = json.dumps(METADATA_KEYS)
         handle.attrs["ncyc_grid"] = json.dumps([int(value) for value in ncyc_grid])
         handle.attrs["t_relax"] = float(t_relax)
+        handle.attrs["sequence"] = str(sequence)
         handle.attrs["range_specs"] = specs_json
 
 
@@ -143,10 +148,11 @@ def generate_examples(
     t_relax: float,
     max_retries: int,
     workers: int,
+    sequence: str = "home",
 ) -> list[dict[str, Any]]:
     if workers <= 1:
         return [
-            generate_one_example(seed, specs_json, ncyc_grid, t_relax, max_retries)
+            generate_one_example(seed, specs_json, ncyc_grid, t_relax, max_retries, sequence)
             for seed in seeds
         ]
 
@@ -159,6 +165,7 @@ def generate_examples(
                 [ncyc_grid] * len(seeds),
                 [t_relax] * len(seeds),
                 [max_retries] * len(seeds),
+                [sequence] * len(seeds),
             )
         )
 
@@ -172,6 +179,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--ranges-csv", type=Path, default=None)
+    parser.add_argument(
+        "--sequence",
+        choices=["home", "chemex"],
+        default="home",
+        help="Pulse sequence used for BOTH profiles of each pair. "
+             "'chemex' reproduces ChemEx cpmg_15n_ip (what a real spectrometer runs); "
+             "note its ncyc means pulses per half-train, so pick the grid accordingly.",
+    )
     parser.add_argument("--ncyc-start", type=int, default=int(DEFAULT_NCYC_GRID[0]))
     parser.add_argument("--ncyc-stop", type=int, default=80)
     parser.add_argument("--ncyc-step", type=int, default=2)
@@ -212,6 +227,7 @@ def main() -> None:
             args.t_relax,
             args.max_retries,
             args.workers,
+            args.sequence,
         )
         shard_path = args.out_dir / f"{args.split}_{shard_index:04d}.h5"
         write_shard(
@@ -221,6 +237,7 @@ def main() -> None:
             args.t_relax,
             specs_json,
             None if args.compression == "none" else args.compression,
+            args.sequence,
         )
         written += count
         shard_index += 1

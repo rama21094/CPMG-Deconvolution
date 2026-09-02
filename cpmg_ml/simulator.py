@@ -477,9 +477,23 @@ class CPMGSimulator:
         params: Mapping[str, float],
         ncyc_range: np.ndarray = DEFAULT_NCYC_GRID,
         t_relax: float = DEFAULT_T_RELAX,
+        sequence: str = "home",
     ) -> tuple[CPMGProfile, CPMGProfile]:
-        with_j = self.simulate_cpmg(params, ncyc_range=ncyc_range, t_relax=t_relax)
+        """Matched (J-coupled, J-free) profile pair for de-J-coupling training.
+
+        Both profiles use the same pulse sequence and the same ncyc grid, so the
+        only difference between them is J_IS. sequence="chemex" runs ChemEx's
+        cpmg_15n_ip sequence, which is what a real spectrometer executes;
+        remember that its ncyc convention differs from "home" (pulses per
+        half-train rather than total pulse count), so the ncyc grid should be
+        chosen for whichever sequence is selected.
+        """
+        with_j = self.simulate_cpmg(
+            params, ncyc_range=ncyc_range, t_relax=t_relax, sequence=sequence
+        )
         no_j_params = dict(params)
         no_j_params["J_IS"] = 0.0
-        no_j = self.simulate_cpmg(no_j_params, ncyc_range=ncyc_range, t_relax=t_relax)
+        no_j = self.simulate_cpmg(
+            no_j_params, ncyc_range=ncyc_range, t_relax=t_relax, sequence=sequence
+        )
         return with_j, no_j
