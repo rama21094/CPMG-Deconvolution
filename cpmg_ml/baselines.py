@@ -147,10 +147,19 @@ class CNN(nn.Module):
 
 
 class Transformer(nn.Module):
-    """Masked-style encoder over points; same family as ExperimentalCPMGTransformer."""
+    """Encoder over points; same family as ExperimentalCPMGTransformer.
 
-    def __init__(self, L, gdim, dim=128, heads=8, layers=4, ff=256):
+    A learned positional embedding is included: without it the model is
+    permutation-invariant apart from the log-nu feature, which handicaps it
+    badly on a fixed regular grid relative to a ConvNet. Keeping it optional
+    (`use_pos`) lets the fixed-grid and irregular-grid cases be compared fairly.
+    """
+
+    def __init__(self, L, gdim, dim=128, heads=8, layers=4, ff=256, use_pos=True):
         super().__init__()
+        self.pos = nn.Parameter(torch.zeros(1, L, dim)) if use_pos else None
+        if self.pos is not None:
+            nn.init.trunc_normal_(self.pos, std=0.02)
         self.pt = nn.Sequential(nn.Linear(2, dim), nn.GELU(), nn.Linear(dim, dim))
         self.gl = nn.Sequential(nn.Linear(gdim, dim), nn.GELU(), nn.Linear(dim, dim))
         enc = nn.TransformerEncoderLayer(dim, heads, ff, dropout=0.0,
@@ -160,10 +169,17 @@ class Transformer(nn.Module):
 
     def forward(self, p, g):
         h = self.pt(p.transpose(1, 2)) + self.gl(g).unsqueeze(1)
+        if self.pos is not None:
+            h = h + self.pos
         return self.head(self.enc(h)).squeeze(-1)
 
 
-MODELS = {"linear": LinearBase, "mlp": MLP, "cnn": CNN, "transformer": Transformer}
+def _transformer_nopos(L, gdim):
+    return Transformer(L, gdim, use_pos=False)
+
+
+MODELS = {"linear": LinearBase, "mlp": MLP, "cnn": CNN, "transformer": Transformer,
+          "transformer_nopos": _transformer_nopos}
 
 
 # -------------------------------------------------------------- training
