@@ -32,6 +32,28 @@
     "val_rmse": 0.3283087015027943
   },
   {
+    "rmse": 0.22458671235590205,
+    "identity_rmse": 0.8391246195198387,
+    "artefact_removed_pct": 73.23559491265858,
+    "median_max_abs_err": 0.11790734529495239,
+    "p95_max_abs_err": 0.9455001831054679,
+    "name": "transformer (no pos-enc)",
+    "params": 580865,
+    "train_s": 838.8,
+    "val_rmse": 0.22480414787226236
+  },
+  {
+    "rmse": 0.2184980925694577,
+    "identity_rmse": 0.8391246195198387,
+    "artefact_removed_pct": 73.96118675501549,
+    "median_max_abs_err": 0.10310125350952148,
+    "p95_max_abs_err": 0.9497931212186802,
+    "name": "transformer (+pos-enc)",
+    "params": 585985,
+    "train_s": 828.9,
+    "val_rmse": 0.2051710461548814
+  },
+  {
     "rmse": 0.14803996189099294,
     "identity_rmse": 0.8391246195198387,
     "artefact_removed_pct": 82.35780974038113,
@@ -41,16 +63,5 @@
     "params": 769505,
     "train_s": 683.3,
     "val_rmse": 0.15634302043629703
-  },
-  {
-    "rmse": 0.22458671235590205,
-    "identity_rmse": 0.8391246195198387,
-    "artefact_removed_pct": 73.23559491265858,
-    "median_max_abs_err": 0.11790734529495239,
-    "p95_max_abs_err": 0.9455001831054679,
-    "name": "transformer",
-    "params": 580865,
-    "train_s": 838.8,
-    "val_rmse": 0.22480414787226236
   }
 ]
