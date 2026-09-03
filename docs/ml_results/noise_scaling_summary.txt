@@ -1,0 +1,9 @@
+500k test set: J artefact med max = 0.675 s-1 (measurable pts 96.2%)
+
+   train  sigma   SNR     RMSE   medmax  vs artefact
+    500k  0.000   inf    0.013    0.010        0.01x
+     60k  0.000   inf    0.060    0.063        0.09x
+    500k  0.010   100    0.949    0.656        0.97x
+     60k  0.010   100    1.028    0.716        1.06x
+
+[exited with code 0]

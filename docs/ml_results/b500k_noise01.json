@@ -1,0 +1,23 @@
+[
+  {
+    "name": "identity",
+    "params": 0,
+    "rmse": 25.125503302526027,
+    "identity_rmse": 25.125503302526027,
+    "artefact_removed_pct": 0.0,
+    "median_max_abs_err": 2.4174769033894634,
+    "p95_max_abs_err": 229.08558257845993,
+    "train_s": 0.0
+  },
+  {
+    "rmse": 3.303709660892582,
+    "identity_rmse": 25.125503302526027,
+    "artefact_removed_pct": 86.85117021890487,
+    "median_max_abs_err": 0.6590762559374435,
+    "p95_max_abs_err": 12.441643860203058,
+    "name": "cnn",
+    "params": 769505,
+    "train_s": 5041.6,
+    "val_rmse": 3.185619681423892
+  }
+]

@@ -1,0 +1,13 @@
+  return float(np.nanmedian(np.nanmax(e,1)))
+J artefact (the thing to beat): RMSE 0.695  med max 0.686 s-1
+
+  sigma    SNR  noise medmax  CNN RMSE  CNN medmax  vs artefact
+  0.000    inf         0.686     0.062       0.064        0.09x
+  0.001   1000         1.157     0.173       0.194        0.28x
+  0.002    500         1.338     0.271       0.265        0.39x
+  0.005    200         1.745     0.561       0.454        0.66x
+  0.010    100         2.436     1.040       0.731        1.07x
+
+log-log fit slope 0.58; ratio = 1 at sigma_rel = 0.0096  (SNR 104)
+
+[exited with code 0]

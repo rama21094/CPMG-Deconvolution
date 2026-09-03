@@ -55,12 +55,42 @@ def load_split(data_dir: Path, split: str) -> dict[str, np.ndarray]:
         with h5py.File(f, "r") as h:
             wj.append(h["r2_with_j"][:]); nj.append(h["r2_no_j"][:])
             nu.append(h["nu_cp"][:]);     meta.append(h["metadata"][:])
+    with h5py.File(files[0], "r") as h:
+        t_relax = float(h.attrs["t_relax"])
     return {
         "with_j": np.concatenate(wj).astype(np.float64),
         "no_j":   np.concatenate(nj).astype(np.float64),
         "nu":     np.concatenate(nu).astype(np.float64),
         "glob":   np.concatenate(meta).astype(np.float64)[:, GLOBAL_IDX],
+        "t_relax": t_relax,
     }
+
+
+def add_intensity_noise(r2: np.ndarray, t_relax: float, sigma_rel: float,
+                        rng: np.random.Generator) -> np.ndarray:
+    """Perturb a R2_eff profile the way a real experiment is perturbed.
+
+    Noise in a CPMG experiment is Gaussian in the *intensity* domain, not in
+    R2_eff.  Each point comes from a ratio of two measured peak heights,
+
+        R2_eff = -ln(I / I0) / T,
+
+    so we go back to intensities (I0 = 1 by construction), add independent
+    Gaussian noise of standard deviation `sigma_rel` (quoted relative to the
+    reference intensity, i.e. 1/SNR) to both the reference and the relaxed
+    point, and take the log again.  This makes the induced R2 noise
+    *heteroscedastic*: sigma_R2 ~ (sigma_rel/T) * sqrt(1 + exp(2 R2 T)), so
+    fast-relaxing points -- exactly the interesting ones -- are far noisier
+    than slow ones.  Adding homoscedastic noise directly to R2_eff would make
+    the task look easier than it is.
+    """
+    if sigma_rel <= 0:
+        return r2
+    inten = np.exp(-r2 * t_relax)
+    i_ref = 1.0 + sigma_rel * rng.standard_normal(size=(r2.shape[0], 1))
+    i_obs = inten + sigma_rel * rng.standard_normal(size=r2.shape)
+    floor = 1e-6
+    return -np.log(np.clip(i_obs, floor, None) / np.clip(i_ref, floor, None)) / t_relax
 
 
 def featurise(d: dict[str, np.ndarray], stats: dict | None = None):
@@ -204,7 +234,7 @@ def evaluate(model, pts, glb, resid, scale, wj, nj, dev, bs=2048):
     }
 
 
-def train_one(name, tr, va, te, dev, epochs, bs, lr, seed=0):
+def train_one(name, tr, va, te, dev, epochs, bs, lr, seed=0, resample=None):
     torch.manual_seed(seed)
     L = tr["pts"].shape[-1]; gdim = tr["glb"].shape[-1]
     model = MODELS[name](L, gdim).to(dev)
@@ -218,6 +248,8 @@ def train_one(name, tr, va, te, dev, epochs, bs, lr, seed=0):
     best, best_state, t0 = math.inf, None, time.time()
     step = 0
     for ep in range(epochs):
+        if resample is not None:
+            tr = resample(ep)          # fresh noise draw each epoch (augmentation)
         model.train()
         perm = torch.randperm(n)
         for i in range(0, n - bs + 1, bs):
@@ -242,7 +274,13 @@ def train_one(name, tr, va, te, dev, epochs, bs, lr, seed=0):
     return model, res
 
 
-def pack(d, stats=None, dev="cpu"):
+def pack(d, stats=None, dev="cpu", sigma_rel=0.0, seed=0):
+    """Featurise a split.  Noise is added to the INPUT only -- the target stays
+    the clean no-J curve, which is the physical answer we actually want."""
+    if sigma_rel > 0:
+        d = dict(d)
+        d["with_j"] = add_intensity_noise(d["with_j"], d["t_relax"], sigma_rel,
+                                          np.random.default_rng(seed))
     pts, glb, resid, scale, stats = featurise(d, stats)
     return {
         "pts": torch.from_numpy(pts), "glb": torch.from_numpy(glb),
@@ -260,14 +298,23 @@ def main():
     ap.add_argument("--batch-size", type=int, default=256)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--device", default="mps" if torch.backends.mps.is_available() else "cpu")
+    ap.add_argument("--noise", type=float, default=0.0,
+                    help="relative intensity noise (1/SNR) added to the INPUT curve; "
+                         "0.01 = 1%% of the reference peak height. Target stays clean.")
     a = ap.parse_args()
 
     a.out_dir.mkdir(parents=True, exist_ok=True)
     print(f"device={a.device}  data={a.data_dir}")
     raw = {s: load_split(a.data_dir, s) for s in ("train", "val", "test")}
-    tr, stats = pack(raw["train"])
-    va, _ = pack(raw["val"], stats)
-    te, _ = pack(raw["test"], stats)
+    # Stats are fitted on a noisy draw so that normalisation matches what the
+    # model will actually see; val/test get one fixed draw for reproducibility.
+    tr, stats = pack(raw["train"], sigma_rel=a.noise, seed=1000)
+    va, _ = pack(raw["val"], stats, sigma_rel=a.noise, seed=2000)
+    te, _ = pack(raw["test"], stats, sigma_rel=a.noise, seed=3000)
+    resample = None
+    if a.noise > 0:
+        print(f"input noise: sigma_rel={a.noise:.4g} (intensity domain), target clean")
+        resample = lambda ep: pack(raw["train"], stats, sigma_rel=a.noise, seed=10_000 + ep)[0]
     print(f"train={len(tr['pts'])}  val={len(va['pts'])}  test={len(te['pts'])}  "
           f"points={tr['pts'].shape[-1]}")
 
@@ -280,9 +327,11 @@ def main():
 
     for name in a.models:
         print(f"\n--- {name} ---", flush=True)
-        model, res = train_one(name, tr, va, te, a.device, a.epochs, a.batch_size, a.lr)
+        model, res = train_one(name, tr, va, te, a.device, a.epochs, a.batch_size, a.lr,
+                               resample=resample)
         rows.append(res)
-        torch.save({"state_dict": model.state_dict(), "stats": stats, "arch": name},
+        torch.save({"state_dict": model.state_dict(), "stats": stats, "arch": name,
+                    "noise": a.noise},
                    a.out_dir / f"{name}.pt")
         print(f"  params={res['params']:,}  test RMSE={res['rmse']:.4f} s-1  "
               f"artefact removed={res['artefact_removed_pct']:.1f}%  ({res['train_s']}s)")
