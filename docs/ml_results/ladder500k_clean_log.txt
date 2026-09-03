@@ -1,0 +1,31 @@
+START 2026-09-03 22:11:28
+device=mps  data=data/cpmg_dej_chemex_500k
+train=500000  val=20000  test=20000  points=40
+
+--- linear ---
+  params=3,400  test RMSE=0.5412 s-1  artefact removed=33.9%  (96.9s)
+
+--- mlp ---
+  params=852,008  test RMSE=0.2058 s-1  artefact removed=74.9%  (374.6s)
+
+--- cnn ---
+  params=769,505  test RMSE=0.0532 s-1  artefact removed=93.5%  (4530.8s)
+
+--- transformer ---
+  params=585,985  test RMSE=0.0808 s-1  artefact removed=90.1%  (4992.9s)
+
+--- transformer_nopos ---
+  params=580,865  test RMSE=0.0711 s-1  artefact removed=91.3%  (4897.2s)
+
+model            params   test RMSE  artefact rm  med max err
+identity              0      0.8190         0.0%       0.8249
+linear            3,400      0.5412        33.9%       0.4243
+mlp             852,008      0.2058        74.9%       0.1042
+cnn             769,505      0.0532        93.5%       0.0102
+transformer     585,985      0.0808        90.1%       0.0239
+transformer_nopos   580,865      0.0711        91.3%       0.0215
+
+wrote runs/ladder500k_clean/results.json
+CLEAN-DONE 2026-09-04 02:19:46
+
+[exited with code 0]
