@@ -1,0 +1,8 @@
+profiles 19944   measurable points 96.2%
+median artefact 0.675 s-1   median noise 1.589 s-1
+recoverable, clean                             93.5%
+artefact visible above noise (SNR 100)         26.3%
+recoverable, SNR 100                           16.0%
+saved docs/group_meeting_figs/gm_recoverability.png
+
+[exited with code 0]
