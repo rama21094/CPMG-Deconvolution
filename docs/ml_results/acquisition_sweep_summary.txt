@@ -1,0 +1,9 @@
+patched
+
+current acquisition (T=40 ms, 40 points): median D 1.19, 24.2% detectable
+best swept acquisition: T=100 ms, 100 points -> 38.9% detectable (1.61x the current acquisition)
+wrote docs/ml_results/acquisition_D.npz
+
+wrote docs/ml_results/acquisition_sweep.json
+
+[exited with code 0]
