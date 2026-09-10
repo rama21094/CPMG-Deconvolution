@@ -1,4 +1,10 @@
-"""How much of the J artefact is detectable, as a function of how the experiment
+"""LEGACY ANALYSIS: independence assumption below omits shared-reference noise.
+
+Do not interpret these statistics as recovery ceilings. Use
+``python -m cpmg_ml.acquisition_covariance`` for the revised pilot.
+The historical rationale below is retained for provenance, not endorsed.
+
+How much of the J artefact is detectable, as a function of how the experiment
 is acquired.
 
 The 26.3% "visible above noise" ceiling reported for the current acquisition

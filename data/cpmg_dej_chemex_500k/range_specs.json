@@ -1,0 +1,67 @@
+{
+  "B0_MHz": {
+    "distribution": "uniform",
+    "high": 1200.684052940407,
+    "low": 498.1561496242113
+  },
+  "B1_N": {
+    "distribution": "log_uniform",
+    "high": 10000.0,
+    "low": 2000.0
+  },
+  "J_IS": {
+    "distribution": "uniform",
+    "high": 105.0,
+    "low": 85.0
+  },
+  "S2": {
+    "distribution": "uniform",
+    "high": 1.0,
+    "low": 0.01
+  },
+  "csa_N_ppm": {
+    "distribution": "uniform",
+    "high": -130.0,
+    "low": -190.0
+  },
+  "dw_N": {
+    "distribution": "uniform",
+    "high": 10.0,
+    "low": 0.5
+  },
+  "k_ex": {
+    "distribution": "log_uniform",
+    "high": 4000.0,
+    "low": 50.0
+  },
+  "p_B": {
+    "distribution": "uniform",
+    "high": 0.15,
+    "low": 0.005
+  },
+  "r_IS": {
+    "distribution": "uniform",
+    "high": 1.1000000000000001e-10,
+    "low": 1e-10
+  },
+  "r_eff": {
+    "distribution": "uniform",
+    "high": 2.5e-10,
+    "low": 1.8e-10
+  },
+  "tau_e": {
+    "distribution": "log_uniform",
+    "high": 7.5e-10,
+    "low": 1e-12
+  },
+  "tau_m": {
+    "distribution": "log_uniform",
+    "high": 5.0000000000000004e-08,
+    "low": 5e-10
+  },
+  "theta_N_deg": {
+    "distribution": "uniform",
+    "high": 25.0,
+    "low": 15.0
+  }
+}

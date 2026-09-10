@@ -16,9 +16,10 @@ only carries the R1 equilibrium-recovery source terms -- is dropped, leaving
 """
 
 import sys
+from pathlib import Path
 import numpy as np
 
-sys.path.insert(0, "/Users/shankararamasharma/Desktop/IISc/CPMG Project")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 np.set_printoptions(linewidth=250, precision=5, suppress=True)
 
 from cpmg_ml.simulator import CPMGSimulator, b0_mhz_to_tesla
@@ -154,3 +155,6 @@ else:
             continue
         seen.add(key)
         print(f"{NAMES[r]:>10}{NAMES[c]:>10}{OURS30[r,c]:14.5f}{CX[r,c]:14.5f}{D[r,c]:14.5f}")
+
+# Structural equality with shared rates, not independent validation of rates.
+np.testing.assert_allclose(OURS30, CX, rtol=0, atol=tol)

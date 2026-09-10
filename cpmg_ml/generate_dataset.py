@@ -64,6 +64,7 @@ def generate_one_example(
         )
         if valid:
             return {
+                "simulation_seed": int(seed),
                 "r2_with_j": with_j.r2_eff.astype(np.float32),
                 "r2_no_j": no_j.r2_eff.astype(np.float32),
                 "nu_cp": with_j.nu_cp.astype(np.float32),
@@ -106,6 +107,7 @@ def write_shard(
         kwargs = {"compression": compression, "compression_opts": 4 if compression == "gzip" else None}
 
     with h5py.File(path, "w") as handle:
+        handle.create_dataset('simulation_seed', data=np.asarray([e['simulation_seed'] for e in examples], dtype=np.uint64))
         handle.create_dataset(
             "r2_with_j",
             data=np.stack([item["r2_with_j"] for item in examples]).astype(np.float32),
@@ -177,6 +179,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--num-profiles", type=int, default=10_000)
     parser.add_argument("--shard-size", type=int, default=1_000)
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument('--seed-start', type=int, default=None,
+                        help='Use a reserved consecutive seed range instead of random 31-bit seeds. Reserve disjoint ranges for each split.')
+    parser.add_argument('--ranges-json', type=Path, default=None,
+                        help='Explicit versioned range specification; avoids implicit Downloads CSV.')
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--ranges-csv", type=Path, default=None)
     parser.add_argument(
@@ -203,17 +209,26 @@ def main() -> None:
     if args.shard_size < 1:
         raise ValueError("--shard-size must be at least 1")
 
-    specs = load_range_specs(args.ranges_csv)
+    if args.ranges_json and args.ranges_csv:
+        raise ValueError('Choose either --ranges-json or --ranges-csv')
+    specs = load_specs_from_json(args.ranges_json.read_text()) if args.ranges_json else load_range_specs(args.ranges_csv)
     specs_json = specs_to_json(specs)
     ncyc_grid = build_ncyc_grid(args.ncyc_start, args.ncyc_stop, args.ncyc_step)
 
+    if list(args.out_dir.glob(f'{args.split}_*.h5')):
+        raise FileExistsError('Output split already exists; choose a new output directory or split')
     args.out_dir.mkdir(parents=True, exist_ok=True)
     with (args.out_dir / "range_specs.json").open("w") as handle:
         handle.write(specs_json)
         handle.write("\n")
 
     rng = np.random.default_rng(args.seed)
-    seeds = rng.integers(0, np.iinfo(np.int32).max, size=args.num_profiles, dtype=np.int64).tolist()
+    if args.seed_start is not None:
+        if args.seed_start < 0 or args.seed_start + args.num_profiles > 2**64:
+            raise ValueError('Reserved seeds must fit uint64')
+        seeds = list(range(args.seed_start, args.seed_start + args.num_profiles))
+    else:
+        seeds = rng.integers(0, np.iinfo(np.int32).max, size=args.num_profiles, dtype=np.int64).tolist()
 
     written = 0
     shard_index = 0

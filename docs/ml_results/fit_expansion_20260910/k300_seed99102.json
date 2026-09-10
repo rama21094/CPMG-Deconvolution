@@ -1,0 +1,216 @@
+{
+  "scope": "Small downstream ChemEx pilot: one exchange group, three shifts, two fields.\n\nKnown R1 is fixed and R2 is fitted: an optimistic controlled benchmark, not\nan experimental validation. Clean J=0 is the fitting-model control. Each arm\nuses two starting points. Corrected intensities are pseudo-data; their supplied\nerrors are fitting weights, not calibrated DNN uncertainties.\n",
+  "truth": {
+    "KEX_AB": 300.0,
+    "PB": 0.05,
+    "DW_AB": [
+      1.0,
+      3.0,
+      5.0
+    ]
+  },
+  "noise_seed": 99102,
+  "work_dir": "/private/tmp/cpmg-expand-20260910-k300-s99102",
+  "results": [
+    {
+      "run": "clean_j0_start0",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 299.958,
+          "PB": 0.0500782
+        },
+        "DW_AB": {
+          "1N": 1.00002,
+          "2N": 3.00047,
+          "3N": 5.00123
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.46509,
+          "2N": 6.46444,
+          "3N": 6.46362
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 7.06764,
+          "2N": 7.06628,
+          "3N": 7.06472
+        }
+      }
+    },
+    {
+      "run": "clean_j0_start1",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 299.958,
+          "PB": 0.0500782
+        },
+        "DW_AB": {
+          "1N": -1.00002,
+          "2N": 3.00047,
+          "3N": 5.00123
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.46509,
+          "2N": 6.46444,
+          "3N": 6.46362
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 7.06764,
+          "2N": 7.06628,
+          "3N": 7.06472
+        }
+      }
+    },
+    {
+      "run": "noisy_j0_start0",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 293.779,
+          "PB": 0.0511841
+        },
+        "DW_AB": {
+          "1N": 1.00692,
+          "2N": 3.03758,
+          "3N": 5.04087
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.8501,
+          "2N": 6.55817,
+          "3N": 6.19671
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.51494,
+          "2N": 7.3945,
+          "3N": 6.853
+        }
+      }
+    },
+    {
+      "run": "noisy_j0_start1",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 293.775,
+          "PB": 0.0511847
+        },
+        "DW_AB": {
+          "1N": -1.00691,
+          "2N": 3.03759,
+          "3N": 5.04088
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.8501,
+          "2N": 6.55817,
+          "3N": 6.19672
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.51494,
+          "2N": 7.3945,
+          "3N": 6.85301
+        }
+      }
+    },
+    {
+      "run": "noisy_coupled_start0",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 227.692,
+          "PB": 0.0709947
+        },
+        "DW_AB": {
+          "1N": -1.07497,
+          "2N": 2.9081,
+          "3N": 4.77342
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.87957,
+          "2N": 6.65433,
+          "3N": 6.33928
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.46729,
+          "2N": 7.48634,
+          "3N": 6.98086
+        }
+      }
+    },
+    {
+      "run": "noisy_coupled_start1",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 227.691,
+          "PB": 0.070995
+        },
+        "DW_AB": {
+          "1N": 1.07497,
+          "2N": 2.9081,
+          "3N": 4.77343
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.87956,
+          "2N": 6.65433,
+          "3N": 6.33927
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.46728,
+          "2N": 7.48634,
+          "3N": 6.98085
+        }
+      }
+    },
+    {
+      "run": "cnn_corrected_start0",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 232.754,
+          "PB": 0.063577
+        },
+        "DW_AB": {
+          "1N": 1.03948,
+          "2N": 3.05982,
+          "3N": 5.12506
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.84098,
+          "2N": 6.57791,
+          "3N": 6.21524
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.51277,
+          "2N": 7.40135,
+          "3N": 6.84382
+        }
+      }
+    },
+    {
+      "run": "cnn_corrected_start1",
+      "returncode": 0,
+      "fitted": {
+        "GLOBAL": {
+          "KEX_AB": 232.753,
+          "PB": 0.0635771
+        },
+        "DW_AB": {
+          "1N": -1.03948,
+          "2N": 3.05982,
+          "3N": 5.12507
+        },
+        "R2_A, B0->600.0MHZ": {
+          "1N": 6.84099,
+          "2N": 6.57791,
+          "3N": 6.21524
+        },
+        "R2_A, B0->800.0MHZ": {
+          "1N": 6.51278,
+          "2N": 7.40135,
+          "3N": 6.84382
+        }
+      }
+    }
+  ]
+}

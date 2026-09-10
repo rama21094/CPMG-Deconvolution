@@ -1,0 +1,834 @@
+{
+  "scope": "Exploratory fixed geometry, pB=.05, kex=300/600/1800, two noise draws each. Six cases are not six independent physical systems. DW metric compares shift magnitudes, averaging three residue absolute relative errors per case; signed fits are retained. No population inference.",
+  "complete": true,
+  "aggregate": {
+    "clean_j0": {
+      "KEX_AB": {
+        "mean_absolute_percent_error": 0.017629629629626702,
+        "max_absolute_percent_error": 0.028333333333330213
+      },
+      "PB": {
+        "mean_absolute_percent_error": 0.31366666666665655,
+        "max_absolute_percent_error": 0.5561999999999845
+      },
+      "DW_AB": {
+        "mean_absolute_percent_error": 0.06722592592592398,
+        "max_absolute_percent_error": 0.1716000000000014
+      }
+    },
+    "noisy_j0": {
+      "KEX_AB": {
+        "mean_absolute_percent_error": 1.656074074074071,
+        "max_absolute_percent_error": 3.8196666666666657
+      },
+      "PB": {
+        "mean_absolute_percent_error": 1.4948666666666668,
+        "max_absolute_percent_error": 3.147600000000006
+      },
+      "DW_AB": {
+        "mean_absolute_percent_error": 1.0946925925925919,
+        "max_absolute_percent_error": 1.968066666666668
+      }
+    },
+    "noisy_coupled": {
+      "KEX_AB": {
+        "mean_absolute_percent_error": 18.470185185185183,
+        "max_absolute_percent_error": 25.551999999999996
+      },
+      "PB": {
+        "mean_absolute_percent_error": 21.961066666666653,
+        "max_absolute_percent_error": 43.90959999999999
+      },
+      "DW_AB": {
+        "mean_absolute_percent_error": 4.093877777777778,
+        "max_absolute_percent_error": 5.775533333333331
+      }
+    },
+    "cnn_corrected": {
+      "KEX_AB": {
+        "mean_absolute_percent_error": 11.037324074074073,
+        "max_absolute_percent_error": 22.415333333333333
+      },
+      "PB": {
+        "mean_absolute_percent_error": 11.44086666666666,
+        "max_absolute_percent_error": 27.15399999999999
+      },
+      "DW_AB": {
+        "mean_absolute_percent_error": 1.5849851851851868,
+        "max_absolute_percent_error": 2.8144000000000022
+      }
+    }
+  },
+  "paired_improvement": {
+    "KEX_AB": {
+      "improved": 6,
+      "total": 6
+    },
+    "PB": {
+      "improved": 5,
+      "total": 6
+    },
+    "DW_AB": {
+      "improved": 6,
+      "total": 6
+    }
+  },
+  "cases": [
+    {
+      "kex": 1800.0,
+      "seed": 99101,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.010555555555558094,
+            "PB": 0.5561999999999845,
+            "DW_AB": 0.1716000000000014
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1799.81,
+              "PB": 0.0502781
+            },
+            "DW_AB": {
+              "1N": 0.998236,
+              "2N": 2.99445,
+              "3N": 4.99233
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46697,
+              "2N": 6.46784,
+              "3N": 6.4624
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.06894,
+              "2N": 7.06752,
+              "3N": 7.05698
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": 0.2983333333333338,
+            "PB": -1.5054000000000012,
+            "DW_AB": 1.968066666666668
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1805.37,
+              "PB": 0.0492473
+            },
+            "DW_AB": {
+              "1N": 1.02461,
+              "2N": 3.05727,
+              "3N": 5.07671
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.93101,
+              "2N": 6.49577,
+              "3N": 6.32872
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.33486,
+              "2N": 6.82304,
+              "3N": 6.81708
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -11.874444444444443,
+            "PB": 0.4689999999999861,
+            "DW_AB": 5.775533333333331
+          },
+          "start_max_relative_difference": 1.9906637867588344e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1586.26,
+              "PB": 0.0502345
+            },
+            "DW_AB": {
+              "1N": -1.13668,
+              "2N": 3.03336,
+              "3N": 5.12733
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.89422,
+              "2N": 6.84277,
+              "3N": 6.86615
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.105,
+              "2N": 7.41753,
+              "3N": 7.79594
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -1.1877777777777876,
+            "PB": 0.7333999999999952,
+            "DW_AB": 1.2692222222222143
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1778.62,
+              "PB": 0.0503667
+            },
+            "DW_AB": {
+              "1N": 0.977906,
+              "2N": 3.03698,
+              "3N": 5.01828
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.99334,
+              "2N": 6.46613,
+              "3N": 6.38073
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.39699,
+              "2N": 6.747,
+              "3N": 6.90211
+            }
+          }
+        }
+      }
+    },
+    {
+      "kex": 1800.0,
+      "seed": 99102,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.010555555555558094,
+            "PB": 0.5561999999999845,
+            "DW_AB": 0.1716000000000014
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1799.81,
+              "PB": 0.0502781
+            },
+            "DW_AB": {
+              "1N": 0.998236,
+              "2N": 2.99445,
+              "3N": 4.99233
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46697,
+              "2N": 6.46784,
+              "3N": 6.4624
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.06894,
+              "2N": 7.06752,
+              "3N": 7.05698
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -1.7694444444444346,
+            "PB": -0.09300000000000974,
+            "DW_AB": 0.560333333333333
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1768.15,
+              "PB": 0.0499535
+            },
+            "DW_AB": {
+              "1N": 0.998958,
+              "2N": 3.02013,
+              "3N": 5.04529
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.87008,
+              "2N": 6.57004,
+              "3N": 6.22855
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.54627,
+              "2N": 7.43799,
+              "3N": 6.94125
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -14.626666666666665,
+            "PB": 1.9205999999999834,
+            "DW_AB": 4.388311111111114
+          },
+          "start_max_relative_difference": 6.507366338689485e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1536.72,
+              "PB": 0.0509603
+            },
+            "DW_AB": {
+              "1N": -1.10716,
+              "2N": 2.99726,
+              "3N": 5.11788
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.84658,
+              "2N": 6.94134,
+              "3N": 6.76886
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.33825,
+              "2N": 8.07845,
+              "3N": 7.93964
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -6.263333333333332,
+            "PB": 1.308599999999993,
+            "DW_AB": 1.3661555555555631
+          },
+          "start_max_relative_difference": 1.9741660629576474e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 1687.26,
+              "PB": 0.0506543
+            },
+            "DW_AB": {
+              "1N": -1.03001,
+              "2N": 3.00773,
+              "3N": 5.04199
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.8453,
+              "2N": 6.62517,
+              "3N": 6.41064
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.46214,
+              "2N": 7.54901,
+              "3N": 7.22101
+            }
+          }
+        }
+      }
+    },
+    {
+      "kex": 300.0,
+      "seed": 99101,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.013999999999991797,
+            "PB": 0.15639999999998988,
+            "DW_AB": 0.014088888888882009
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 299.958,
+              "PB": 0.0500782
+            },
+            "DW_AB": {
+              "1N": 1.00002,
+              "2N": 3.00047,
+              "3N": 5.00123
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46509,
+              "2N": 6.46444,
+              "3N": 6.46362
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.06764,
+              "2N": 7.06628,
+              "3N": 7.06472
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -1.0596666666666588,
+            "PB": 1.0217999999999838,
+            "DW_AB": 1.108555555555557
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 296.821,
+              "PB": 0.0505109
+            },
+            "DW_AB": {
+              "1N": 1.00445,
+              "2N": 3.05081,
+              "3N": 5.05935
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.95734,
+              "2N": 6.57835,
+              "3N": 6.4264
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.38485,
+              "2N": 6.92536,
+              "3N": 7.05305
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -25.551999999999996,
+            "PB": 43.90959999999999,
+            "DW_AB": 4.301555555555562
+          },
+          "start_max_relative_difference": 4.47739809444075e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 223.344,
+              "PB": 0.0719548
+            },
+            "DW_AB": {
+              "1N": -1.06472,
+              "2N": 2.91646,
+              "3N": 4.8176
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.99269,
+              "2N": 6.68546,
+              "3N": 6.55373
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.34692,
+              "2N": 7.03456,
+              "3N": 7.16342
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -20.174666666666663,
+            "PB": 23.982799999999994,
+            "DW_AB": 2.233866666666673
+          },
+          "start_max_relative_difference": 1.6131269821761658e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 239.476,
+              "PB": 0.0619914
+            },
+            "DW_AB": {
+              "1N": 1.03163,
+              "2N": 3.05343,
+              "3N": 5.08788
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.97195,
+              "2N": 6.595,
+              "3N": 6.4302
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.32929,
+              "2N": 6.93416,
+              "3N": 7.10569
+            }
+          }
+        }
+      }
+    },
+    {
+      "kex": 300.0,
+      "seed": 99102,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.013999999999991797,
+            "PB": 0.15639999999998988,
+            "DW_AB": 0.014088888888882009
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 299.958,
+              "PB": 0.0500782
+            },
+            "DW_AB": {
+              "1N": 1.00002,
+              "2N": 3.00047,
+              "3N": 5.00123
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46509,
+              "2N": 6.46444,
+              "3N": 6.46362
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.06764,
+              "2N": 7.06628,
+              "3N": 7.06472
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -2.0736666666666626,
+            "PB": 2.368199999999998,
+            "DW_AB": 0.9206888888888912
+          },
+          "start_max_relative_difference": 1.3615677090667133e-05,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 293.779,
+              "PB": 0.0511841
+            },
+            "DW_AB": {
+              "1N": 1.00692,
+              "2N": 3.03758,
+              "3N": 5.04087
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.8501,
+              "2N": 6.55817,
+              "3N": 6.19671
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.51494,
+              "2N": 7.3945,
+              "3N": 6.853
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -24.10266666666666,
+            "PB": 41.989399999999975,
+            "DW_AB": 5.030644444444444
+          },
+          "start_max_relative_difference": 4.391897826909926e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 227.692,
+              "PB": 0.0709947
+            },
+            "DW_AB": {
+              "1N": -1.07497,
+              "2N": 2.9081,
+              "3N": 4.77342
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.87957,
+              "2N": 6.65433,
+              "3N": 6.33928
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.46729,
+              "2N": 7.48634,
+              "3N": 6.98086
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -22.415333333333333,
+            "PB": 27.15399999999999,
+            "DW_AB": 2.8144000000000022
+          },
+          "start_max_relative_difference": 4.2963815874475835e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 232.754,
+              "PB": 0.063577
+            },
+            "DW_AB": {
+              "1N": 1.03948,
+              "2N": 3.05982,
+              "3N": 5.12506
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.84098,
+              "2N": 6.57791,
+              "3N": 6.21524
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.51277,
+              "2N": 7.40135,
+              "3N": 6.84382
+            }
+          }
+        }
+      }
+    },
+    {
+      "kex": 600.0,
+      "seed": 99101,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.028333333333330213,
+            "PB": 0.22839999999999527,
+            "DW_AB": 0.015988888888888535
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 599.83,
+              "PB": 0.0501142
+            },
+            "DW_AB": {
+              "1N": 0.999689,
+              "2N": 2.99962,
+              "3N": 5.00021
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46572,
+              "2N": 6.46475,
+              "3N": 6.46276
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.0681,
+              "2N": 7.06593,
+              "3N": 7.06225
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": 0.9156666666666702,
+            "PB": -0.8332000000000006,
+            "DW_AB": 1.2459555555555484
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 605.494,
+              "PB": 0.0495834
+            },
+            "DW_AB": {
+              "1N": 1.01454,
+              "2N": 3.04316,
+              "3N": 5.04226
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.94564,
+              "2N": 6.5501,
+              "3N": 6.4097
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.36375,
+              "2N": 6.8957,
+              "3N": 6.99737
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -15.496833333333338,
+            "PB": 19.3438,
+            "DW_AB": 2.7536888888888904
+          },
+          "start_max_relative_difference": 1.9723126746263023e-06,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 507.019,
+              "PB": 0.0596719
+            },
+            "DW_AB": {
+              "1N": 1.05664,
+              "2N": 2.96137,
+              "3N": 4.93453
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.97826,
+              "2N": 6.66994,
+              "3N": 6.57733
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.30383,
+              "2N": 7.06388,
+              "3N": 7.22742
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -5.935333333333325,
+            "PB": 5.985799999999997,
+            "DW_AB": 0.8900666666666668
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 564.388,
+              "PB": 0.0529929
+            },
+            "DW_AB": {
+              "1N": 1.01802,
+              "2N": 3.01731,
+              "3N": 5.01456
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 5.97998,
+              "2N": 6.56755,
+              "3N": 6.44299
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.30286,
+              "2N": 6.91184,
+              "3N": 7.05231
+            }
+          }
+        }
+      }
+    },
+    {
+      "kex": 600.0,
+      "seed": 99102,
+      "arms": {
+        "clean_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -0.028333333333330213,
+            "PB": 0.22839999999999527,
+            "DW_AB": 0.015988888888888535
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 599.83,
+              "PB": 0.0501142
+            },
+            "DW_AB": {
+              "1N": 0.999689,
+              "2N": 2.99962,
+              "3N": 5.00021
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.46572,
+              "2N": 6.46475,
+              "3N": 6.46276
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 7.0681,
+              "2N": 7.06593,
+              "3N": 7.06225
+            }
+          }
+        },
+        "noisy_j0": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -3.8196666666666657,
+            "PB": 3.147600000000006,
+            "DW_AB": 0.7645555555555535
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 577.082,
+              "PB": 0.0515738
+            },
+            "DW_AB": {
+              "1N": 0.993314,
+              "2N": 3.02156,
+              "3N": 5.04532
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.86245,
+              "2N": 6.56143,
+              "3N": 6.2055
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.53475,
+              "2N": 7.4194,
+              "3N": 6.87772
+            }
+          }
+        },
+        "noisy_coupled": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -19.168499999999998,
+            "PB": 24.13399999999999,
+            "DW_AB": 2.3135333333333286
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 484.989,
+              "PB": 0.062067
+            },
+            "DW_AB": {
+              "1N": 1.03724,
+              "2N": 2.94375,
+              "3N": 4.93292
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.89561,
+              "2N": 6.67228,
+              "3N": 6.37169
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.47499,
+              "2N": 7.57121,
+              "3N": 7.10009
+            }
+          }
+        },
+        "cnn_corrected": {
+          "failed": false,
+          "errors_percent": {
+            "KEX_AB": -10.247499999999999,
+            "PB": 9.480599999999995,
+            "DW_AB": 0.9362000000000018
+          },
+          "start_max_relative_difference": 0.0,
+          "fitted": {
+            "GLOBAL": {
+              "KEX_AB": 538.515,
+              "PB": 0.0547403
+            },
+            "DW_AB": {
+              "1N": 1.01922,
+              "2N": 3.00102,
+              "3N": 5.04263
+            },
+            "R2_A, B0->600.0MHZ": {
+              "1N": 6.8281,
+              "2N": 6.56994,
+              "3N": 6.26413
+            },
+            "R2_A, B0->800.0MHZ": {
+              "1N": 6.50571,
+              "2N": 7.46398,
+              "3N": 6.92426
+            }
+          }
+        }
+      }
+    }
+  ]
+}

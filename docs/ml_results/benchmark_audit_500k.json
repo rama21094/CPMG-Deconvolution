@@ -1,0 +1,288 @@
+{
+  "root": "data/cpmg_dej_chemex_500k",
+  "counts": {
+    "train": 500000,
+    "val": 20000,
+    "test": 20000
+  },
+  "duplicate_occurrences_by_split": {
+    "train->train": 59,
+    "train->val": 4,
+    "train->test": 7
+  },
+  "excluded_duplicate_row_indices": {
+    "train": [
+      54643,
+      64773,
+      77956,
+      109849,
+      122667,
+      124757,
+      146537,
+      153320,
+      167010,
+      181411,
+      181448,
+      182749,
+      187522,
+      190531,
+      191847,
+      194124,
+      198205,
+      232230,
+      242018,
+      247473,
+      249053,
+      256754,
+      259182,
+      263540,
+      265619,
+      271407,
+      271754,
+      277553,
+      281984,
+      291310,
+      294716,
+      328882,
+      330151,
+      350693,
+      351352,
+      357199,
+      373102,
+      375535,
+      386251,
+      402576,
+      413246,
+      417729,
+      424325,
+      424582,
+      427126,
+      430345,
+      431721,
+      436522,
+      442006,
+      447814,
+      449857,
+      454711,
+      458623,
+      461570,
+      469312,
+      481659,
+      483134,
+      487056,
+      494878
+    ],
+    "val": [
+      377,
+      4897,
+      8957,
+      16916
+    ],
+    "test": [
+      2402,
+      5119,
+      10475,
+      15056,
+      16010,
+      17126,
+      19920
+    ]
+  },
+  "nonfinite_rows": {
+    "train": 0,
+    "val": 0,
+    "test": 0
+  },
+  "shards": [
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0000.h5",
+      "rows": 20000,
+      "sha256": "4f1171752d7114bc0b1234e892ab04384baa7c3b340a72b26917a6e6da5a7c46",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0001.h5",
+      "rows": 20000,
+      "sha256": "28a935050efa840d9f6d3f0ff3b4b8057ac65a366dfc21d280946ede7f9dd18c",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0002.h5",
+      "rows": 20000,
+      "sha256": "9c5567bea374582066248d9a0cb2d3dd95b0e018ec76894e9f0b0a3f356780c0",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0003.h5",
+      "rows": 20000,
+      "sha256": "c5ffeffa40f069b7fac90e18bf976c49cb3f16b34bd4c6bd22ef96e8729d346a",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0004.h5",
+      "rows": 20000,
+      "sha256": "bb8b3672f565c50a1982982983cee44c2973e7842883f6bd94a48e5cd4d9b4f2",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0005.h5",
+      "rows": 20000,
+      "sha256": "774002e9f3d60d9f0d728a96cbb3a45ce3f4e37033eb82a62e356bd5a174273e",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0006.h5",
+      "rows": 20000,
+      "sha256": "9a2eec148f4f53954e0db674a5848b4748b36c9a054aa7cac121e4ad968d6269",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0007.h5",
+      "rows": 20000,
+      "sha256": "0b3804887cd69583329cd9a3979571feb042d4e127f17549f0820a0551e0f722",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0008.h5",
+      "rows": 20000,
+      "sha256": "31de54bf9655450018e9de3cfaad1e1697820d66b7553cf70427eb51ff0a1ae4",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0009.h5",
+      "rows": 20000,
+      "sha256": "92714b7ff38ea96cb6de7923ba53cc96120173213ed145786c2b730ce8ff81d0",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0010.h5",
+      "rows": 20000,
+      "sha256": "b986bfe70fdcf1d7c8661b4edde2a8076981b5f2366a9d668a0f49230d65500b",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0011.h5",
+      "rows": 20000,
+      "sha256": "e3756b16eeeab8732a5d90d22350c66914e00cf4424f23d4c890d757d4f35216",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0012.h5",
+      "rows": 20000,
+      "sha256": "45753b188ae4e3650474a0c94b5ca6f4e3d9929d55c0723f27ab0be515e5c667",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0013.h5",
+      "rows": 20000,
+      "sha256": "3b89fefe1f8ed96dbd45c646c5350a9ba6576c27544f53b4e50db8f83960ce4b",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0014.h5",
+      "rows": 20000,
+      "sha256": "821c70565ab8e0fd5b2549e152fdb558b82e53398cc49410c4ca522c54a06676",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0015.h5",
+      "rows": 20000,
+      "sha256": "97469814aa18b55685576ef78794224f6c04b70d6258fcf120c78e7187ebd019",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0016.h5",
+      "rows": 20000,
+      "sha256": "0d7a58295551918303c23f2a4996ebeffa3682aa3c177c036e7895402eeb0fff",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0017.h5",
+      "rows": 20000,
+      "sha256": "edf8a9cdafae41e899e5efadeeedeac2bdde4fdbb2013a529b99513fc8542bcf",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0018.h5",
+      "rows": 20000,
+      "sha256": "99db62544d3293d043ad49546aae726127319634ff6187c99f3a82591502dc14",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0019.h5",
+      "rows": 20000,
+      "sha256": "03a99b4b1d1a16b5b096a058ac3aa7bf0b2a185649292eb417013df08204cb2e",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0020.h5",
+      "rows": 20000,
+      "sha256": "2e7850ea64989aac55117c340c7ef9f7718746532c85c512b21536c4adb98d83",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0021.h5",
+      "rows": 20000,
+      "sha256": "d251beb8bc6d5528665a03c957e4df78990cb4e9d3475574717e1bde9fe1d1bc",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0022.h5",
+      "rows": 20000,
+      "sha256": "1be72d81224043cce4e5626e5c30e58339f723f9d6cce719a0d08495f1e401be",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0023.h5",
+      "rows": 20000,
+      "sha256": "8a4165f56fffd2355ee270e389ef87cff3e7fc36d46d5514e801b8f076fb350c",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/train_0024.h5",
+      "rows": 20000,
+      "sha256": "567bca60e27c6dc7573aba162bd2160180e4d2c2244829e4dd0eb1ae3c6d4166",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/val_0000.h5",
+      "rows": 20000,
+      "sha256": "574da4e5c40e0e82fa283757227facb91ccc024064d65f22856c99e1d9234710",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    },
+    {
+      "file": "data/cpmg_dej_chemex_500k/test_0000.h5",
+      "rows": 20000,
+      "sha256": "b6fedf33360432a19adb224226bd106a7d25e5e68d18f1eeab5d6766961e18e5",
+      "sequence": "chemex",
+      "t_relax": 0.04
+    }
+  ],
+  "definition": "Exact float32 metadata, axes and both curves; each duplicate row counted against each previously seen split. No files modified."
+}

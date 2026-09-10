@@ -2,11 +2,12 @@
 
 Break-even SNR quoted against the *median* J artefact hides the thing an
 experimentalist actually needs to know: for WHICH exchange regimes is the
-artefact recoverable at a given SNR?  A profile is recoverable only if
+artefact recoverable at a given SNR? This script reports descriptive criteria:
 
-  1. the artefact is large enough to be visible above the noise at all, and
+  1. its maximum artefact exceeds the maximum of one noise realisation, and
   2. the model's residual error is small compared with the artefact.
 
+The first is a heuristic, NOT a necessary condition or a recovery ceiling.
 Both are per-profile properties driven by (k_ex, p_B, dw_N), none of which the
 model is given.  This bins the held-out test set over those parameters and
 reports the fraction of profiles meeting a criterion, so the output is a map of
@@ -66,7 +67,7 @@ def main() -> None:
     meta = np.concatenate([h5py.File(f, "r")["metadata"][:]
                            for f in sorted(a.data_dir.glob("test_*.h5"))]).astype(np.float64)
 
-    # only points a real experiment could measure
+    # Operational retrospective mask; not a universal measurability threshold.
     mask = np.exp(-wj * T) > 0.01
 
     def pmax(x):                      # per-profile max over measurable points
@@ -80,10 +81,10 @@ def main() -> None:
     noise_amp = pmax(add_intensity_noise(wj, T, a.sigma, np.random.default_rng(7)) - wj)
 
     good = np.isfinite(artefact) & np.isfinite(err_noisy) & np.isfinite(err_clean)
-    # criterion: model removes >=75% of the artefact for that profile
+    # criterion: maximum prediction error <25% of maximum clean J difference
     rec_clean = good & (err_clean < 0.25 * artefact)
     rec_noisy = good & (err_noisy < 0.25 * artefact)
-    visible = good & (artefact > noise_amp)                    # artefact above the noise at all
+    visible = good & (artefact > noise_amp)                    # single-draw heuristic only
 
     kex = meta[:, METADATA_KEYS.index("k_ex")]
     pb = meta[:, METADATA_KEYS.index("p_B")]
